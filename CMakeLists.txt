@@ -15,6 +15,13 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wpedantic -Werror -Wall -Wextra -Wextra-semi -Wsign-compare")
 
+# Build type flags
+if(CMAKE_BUILD_TYPE MATCHES "DEBUG")
+    set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g -fno-omit-frame-pointer")
+else()
+    set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
+endif()
+
 # Sanitizers option
 option(WITH_SANS "Enable asan and ubsan." OFF) #OFF by default
 if(WITH_SANS)
@@ -22,17 +29,8 @@ if(WITH_SANS)
 endif()
 unset(WITH_SANS CACHE)
 
-# Build type flags
-if(CMAKE_BUILD_TYPE MATCHES "DEBUG")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fno-omit-frame-pointer")
-else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
-endif()
 
+# Sources
+# -------
+add_subdirectory(src)
 
-# Input files
-set(SOURCES src/main.cpp)
-
-# add_subdirectory(src)
-
-add_executable(${PROJECT_NAME} ${SOURCES})
