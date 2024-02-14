@@ -19,7 +19,9 @@
 *.so
 *.exe
 
-*.in
-*.out
+# *.in
+# *.out
+test*.in
+test*.out
 *.txt
 !**/CMakeLists.txt
