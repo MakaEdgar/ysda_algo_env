@@ -2,18 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "LLDB current (no build)",
-            "type": "lldb",
-            "request": "launch",
-            "program": "${workspaceFolder}/build/bin/${fileBasenameNoExtension}",
-            "args": [],
-        },        
-        {
-            "name": "cmake debug current",
+            "name": "gdb test debug (+ cmake)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/bin/${fileBasenameNoExtension}",
-            "args": [],
+            "program": "${workspaceFolder}/build/bin/${fileDirnameBasename}",
+            "args": ["<", "${fileDirname}/test.in", ">", "${fileDirname}/test_my.out"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -29,17 +22,18 @@
                     "description": "Set Disassembly Flavor to Intel",
                     "text": "-gdb-set disassembly-flavor intel",
                     "ignoreFailures": true
-                }
+                },
+                { "text": "set output-radix 10" }
             ],
-            "preLaunchTask": "cmake build all debug",
+            "preLaunchTask": "cmake build debug",
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {
-            "name": "cmake debug sans current",
+            "name": "gdb test debug asan+ubsan (+cmake)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/bin/${fileBasenameNoExtension}",
-            "args": [],
+            "program": "${workspaceFolder}/build/bin/${fileDirnameBasename}",
+            "args": ["<", "${fileDirname}/test.in", ">", "${fileDirname}/test_my.out"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -55,16 +49,17 @@
                     "description": "Set Disassembly Flavor to Intel",
                     "text": "-gdb-set disassembly-flavor intel",
                     "ignoreFailures": true
-                }
+                },
+                { "text": "set output-radix 10" }
             ],
-            "preLaunchTask": "cmake build all debug sans",
+            "preLaunchTask": "cmake build debug asan+ubsan",
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {
-            "name": "cmake release current",
+            "name": "gdb run debug (+ cmake)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/bin/${fileBasenameNoExtension}",
+            "program": "${workspaceFolder}/build/bin/${fileDirnameBasename}",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -81,16 +76,17 @@
                     "description": "Set Disassembly Flavor to Intel",
                     "text": "-gdb-set disassembly-flavor intel",
                     "ignoreFailures": true
-                }
+                },
+                { "text": "set output-radix 10" }
             ],
-            "preLaunchTask": "cmake build all release",
+            "preLaunchTask": "cmake build debug",
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {
-            "name": "gdb current (no build)",
+            "name": "gdb run debug asan+ubsan (+cmake)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/bin/${fileBasenameNoExtension}",
+            "program": "${workspaceFolder}/build/bin/${fileDirnameBasename}",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -107,9 +103,72 @@
                     "description": "Set Disassembly Flavor to Intel",
                     "text": "-gdb-set disassembly-flavor intel",
                     "ignoreFailures": true
-                }
+                },
+                { "text": "set output-radix 10" }
+            ],
+            "preLaunchTask": "cmake build debug asan+ubsan",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "dgb run release (+cmake)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/bin/${fileDirnameBasename}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                },
+                { "text": "set output-radix 10" }
+            ],
+            "preLaunchTask": "cmake build release",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "gdb run (no build)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/bin/${fileDirnameBasename}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                },
+                { "text": "set output-radix 10" }
             ],            
             "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "lldb run (no build)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/bin/${fileDirnameBasename}",
+            "args": [],
+            "cwd": "${workspaceFolder}"
         }
     ],
 }

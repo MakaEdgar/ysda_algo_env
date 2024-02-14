@@ -9,16 +9,8 @@
     },
     "tasks": [
         {
-            "label": "run current (no build)",
-            "command": "${workspaceFolder}/build/bin/${fileBasenameNoExtension}",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceRoot}"
-            }
-        },
-        {
-            "label": "cmake build all debug",
-            "command": "cmake .. -DCMAKE_BUILD_TYPE=DEBUG && cmake --build .",
+            "label": "cmake build debug",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=DEBUG && cmake --build . --target ${fileDirnameBasename}",
             "type": "shell",
             "group": "build",
             "problemMatcher": "$gcc",
@@ -27,8 +19,28 @@
             }
         },
         {
-            "label": "cmake build all debug sans",
-            "command": "cmake .. -DCMAKE_BUILD_TYPE=DEBUG -DWITH_SANS=True && cmake --build .",
+            "label": "cmake build debug asan+ubsan",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=DEBUG -DWITH_SANS=True && cmake --build . --target ${fileDirnameBasename}",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": "$gcc",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            }
+        },
+        {
+            "label": "cmake build release",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=RELEASE && cmake --build . --target ${fileDirnameBasename}",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": "$gcc",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            }
+        },
+        {
+            "label": "cmake build all debug",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=DEBUG && cmake --build .",
             "type": "shell",
             "group": "build",
             "problemMatcher": "$gcc",
@@ -47,41 +59,21 @@
             }
         },
         {
-            "label": "cmake build all release sans",
-            "command": "cmake .. -DCMAKE_BUILD_TYPE=RELEASE -DWITH_SANS=True && cmake --build .",
+            "label": "run current (no build)",
+            "command": "${workspaceFolder}/build/bin/${fileBasenameNoExtension}",
             "type": "shell",
-            "group": "build",
-            "problemMatcher": "$gcc",
-            "options": {
-                "cwd": "${workspaceRoot}/build"
-            }
-        },
-        {
-            "label": "clang++-11 build current debug",
-            "command": "/usr/bin/clang++-11",
-            "args": [
-                "--std=c++20",
-                "-Wall",
-                "-Wextra",
-                "-Werror",
-                "-Wextra-semi",
-                "-Wvla-extension",
-                "-O0",
-                "-g",
-                "-fsanitize=address",
-                "-fsanitize=undefined",
-                "-fno-omit-frame-pointer",
-                "-g",
-                "${fileDirname}/*.cpp",
-                "-o",
-                "${fileDirname}/out"
-            ],
-            "type": "shell",
-            "group": "build",
-            "problemMatcher": "$gcc",
             "options": {
                 "cwd": "${workspaceRoot}"
             }
+        },
+        {
+            "label": "run test cases",
+            "command": "python ${workspaceFolder}/tools/tester/tester.py run-cases ${workspaceFolder}/build/bin/${fileDirnameBasename}",
+            "type": "shell",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": []
         }
     ]
 }
