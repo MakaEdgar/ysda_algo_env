@@ -2,6 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "LLDB current (no build)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/bin/${fileBasenameNoExtension}",
+            "args": [],
+        },        
+        {
             "name": "cmake debug current",
             "type": "cppdbg",
             "request": "launch",
