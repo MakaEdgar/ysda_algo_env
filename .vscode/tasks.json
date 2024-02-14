@@ -1,0 +1,68 @@
+{
+    "version" :"2.0.0",
+    "tasks": [
+      // clang++-11 task
+      {
+        "type": "shell",
+        "label": "clang++-11 build",
+        "command": "/usr/bin/clang++-11",
+        "args": [
+            "--std=c++20",
+            "-Wall", 
+            "-Wextra", 
+            "-Werror", 
+            "-Wextra-semi", 
+            "-Wvla-extension",
+            "-O0",
+            "-g",
+            "-fsanitize=address",
+            "-fsanitize=undefined",
+            "-fno-omit-frame-pointer",
+            "-g",
+            "${fileDirname}/*.cpp",
+            "-o",
+            "${fileDirname}/out"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": ["$gcc"],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "presentation": {
+            "clear": true,
+        },
+      },
+      
+      // g++ task
+      {
+        "type": "shell",
+        "label": "g++ build",
+        "command": "/usr/bin/g++",
+        "args": [
+            "--std=c++20",
+            "-fsanitize=address",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-g",
+            "${fileDirname}/*.cpp",
+            "-o",
+            "${fileDirname}/out"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": ["$gcc"],
+        // "group": {
+        //   "kind": "build",
+        //   "isDefault": true
+        // },
+        "presentation": {
+            "clear": true,
+        },
+      },
+    ]
+}
