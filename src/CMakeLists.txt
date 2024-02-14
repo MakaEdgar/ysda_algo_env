@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.16)
-project(main)
+cmake_minimum_required(VERSION 3.20)
+project(shad_algorithms_part_2)
 
-# Input files
-set(SOURCES main.cpp)
-
-add_executable(${PROJECT_NAME} ${SOURCES})
-
+# Contest 0
+add_subdirectory(c0_a)
+add_subdirectory(c0_b)
+# add_subdirectory(c0_c)
+# add_subdirectory(c0_d)
