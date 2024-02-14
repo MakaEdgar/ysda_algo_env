@@ -33,4 +33,3 @@ unset(WITH_SANS CACHE)
 # Sources
 # -------
 add_subdirectory(src)
-
