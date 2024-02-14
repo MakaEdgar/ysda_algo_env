@@ -1,68 +1,87 @@
 {
-    "version" :"2.0.0",
+    "version": "2.0.0",
+    "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared",
+        "focus": true,
+        "clear": true
+    },
     "tasks": [
-      // clang++-11 task
-      {
-        "type": "shell",
-        "label": "clang++-11 build",
-        "command": "/usr/bin/clang++-11",
-        "args": [
-            "--std=c++20",
-            "-Wall", 
-            "-Wextra", 
-            "-Werror", 
-            "-Wextra-semi", 
-            "-Wvla-extension",
-            "-O0",
-            "-g",
-            "-fsanitize=address",
-            "-fsanitize=undefined",
-            "-fno-omit-frame-pointer",
-            "-g",
-            "${fileDirname}/*.cpp",
-            "-o",
-            "${fileDirname}/out"
-        ],
-        "options": {
-          "cwd": "${workspaceFolder}"
+        {
+            "label": "run current (no build)",
+            "command": "${workspaceFolder}/build/bin/${fileBasenameNoExtension}",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            }
         },
-        "problemMatcher": ["$gcc"],
-        "group": {
-          "kind": "build",
-          "isDefault": true
+        {
+            "label": "cmake build all debug",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=DEBUG && cmake --build .",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": "$gcc",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            }
         },
-        "presentation": {
-            "clear": true,
+        {
+            "label": "cmake build all debug sans",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=DEBUG -DWITH_SANS=True && cmake --build .",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": "$gcc",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            }
         },
-      },
-      
-      // g++ task
-      {
-        "type": "shell",
-        "label": "g++ build",
-        "command": "/usr/bin/g++",
-        "args": [
-            "--std=c++20",
-            "-fsanitize=address",
-            "-Wall",
-            "-Wextra",
-            "-Werror",
-            "-g",
-            "${fileDirname}/*.cpp",
-            "-o",
-            "${fileDirname}/out"
-        ],
-        "options": {
-          "cwd": "${workspaceFolder}"
+        {
+            "label": "cmake build all release",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=RELEASE && cmake --build .",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": "$gcc",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            }
         },
-        "problemMatcher": ["$gcc"],
-        // "group": {
-        //   "kind": "build",
-        //   "isDefault": true
-        // },
-        "presentation": {
-            "clear": true,
+        {
+            "label": "cmake build all release sans",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=RELEASE -DWITH_SANS=True && cmake --build .",
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": "$gcc",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            }
         },
-      },
+        {
+            "label": "clang++-11 build current debug",
+            "command": "/usr/bin/clang++-11",
+            "args": [
+                "--std=c++20",
+                "-Wall",
+                "-Wextra",
+                "-Werror",
+                "-Wextra-semi",
+                "-Wvla-extension",
+                "-O0",
+                "-g",
+                "-fsanitize=address",
+                "-fsanitize=undefined",
+                "-fno-omit-frame-pointer",
+                "-g",
+                "${fileDirname}/*.cpp",
+                "-o",
+                "${fileDirname}/out"
+            ],
+            "type": "shell",
+            "group": "build",
+            "problemMatcher": "$gcc",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            }
+        }
     ]
 }
