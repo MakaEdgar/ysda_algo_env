@@ -16,6 +16,9 @@ int main() {
 
     auto ans = Sum2(a, b);
 
+    // uncomment to test asan
+    // *(&b + 2) = 5;
+
     std::cout << ans;
 
     return 0;
