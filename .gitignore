@@ -21,7 +21,7 @@
 
 # *.in
 # *.out
-test.in
+# test.in
 test_my.out
 *.txt
 !**/CMakeLists.txt
