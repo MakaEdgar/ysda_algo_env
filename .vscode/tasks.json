@@ -9,8 +9,26 @@
     },
     "tasks": [
         {
+            "label": "clang-tidy",
+            "command": "clang-tidy -header-filter=.* -warnings-as-errors=* ${fileBasename}",
+            "type": "shell",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "clang-tidy-after-cmake",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=DEBUG && cmake --build . --target clang-tidy-${fileDirnameBasename}",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "cmake build debug",
-            "command": "cmake .. -DCMAKE_BUILD_TYPE=DEBUG && cmake --build . --target ${fileDirnameBasename}",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=DEBUG && cmake --build . --verbose --target ${fileDirnameBasename} -- --no-print-directory",
             "type": "shell",
             "group": "build",
             "problemMatcher": "$gcc",
@@ -20,7 +38,7 @@
         },
         {
             "label": "cmake build debug asan+ubsan",
-            "command": "cmake .. -DCMAKE_BUILD_TYPE=DEBUG -DWITH_SANS=True && cmake --build . --target ${fileDirnameBasename}",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=DEBUG -DWITH_SANS=True && cmake --build . --verbose --target ${fileDirnameBasename} -- --no-print-directory",
             "type": "shell",
             "group": "build",
             "problemMatcher": "$gcc",
@@ -30,7 +48,7 @@
         },
         {
             "label": "cmake build release",
-            "command": "cmake .. -DCMAKE_BUILD_TYPE=RELEASE && cmake --build . --target ${fileDirnameBasename}",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=RELEASE && cmake --build . --verbose --target ${fileDirnameBasename} -- --no-print-directory",
             "type": "shell",
             "group": "build",
             "problemMatcher": "$gcc",
@@ -40,7 +58,7 @@
         },
         {
             "label": "cmake build all debug",
-            "command": "cmake .. -DCMAKE_BUILD_TYPE=DEBUG && cmake --build .",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=DEBUG && cmake --build . --verbose -- --no-print-directory",
             "type": "shell",
             "group": "build",
             "problemMatcher": "$gcc",
@@ -50,7 +68,7 @@
         },
         {
             "label": "cmake build all release",
-            "command": "cmake .. -DCMAKE_BUILD_TYPE=RELEASE && cmake --build .",
+            "command": "cmake .. -DCMAKE_BUILD_TYPE=RELEASE && cmake --build . --verbose -- --no-print-directory",
             "type": "shell",
             "group": "build",
             "problemMatcher": "$gcc",
@@ -60,11 +78,12 @@
         },
         {
             "label": "run current (no build)",
-            "command": "${workspaceFolder}/build/bin/${fileBasenameNoExtension}",
+            "command": "${workspaceFolder}/build/bin/${fileDirnameBasename}",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceRoot}"
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "run test cases",
