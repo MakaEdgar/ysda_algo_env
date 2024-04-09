@@ -1,8 +1,10 @@
 # Environment for YSDA Algorithm courses.
-Build, Run, Debug and Test your problem soluton in VSCode.
+Build, Run, Debug and Test your problem soluton in VSCode. \
 Edgar Makarov, 2024
 
 ## How to use
+Video manual (in Russian): [youtube](https://www.youtube.com/watch?v=7oT-DVDFMpo).
+
 1. Create a folder `src/problem_name` with unique name (see examples).
 2. Open VSCode and navigate to `src/problem_name/main.cpp`.
 3. Choose build configuration.
